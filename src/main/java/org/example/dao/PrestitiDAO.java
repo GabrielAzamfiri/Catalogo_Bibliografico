@@ -48,16 +48,23 @@ public class PrestitiDAO {
     }
 
     public List<Prestiti> findElementoByTessera(Integer tessera) {
+
         TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.utente.numeroTessera = :tessera ", Prestiti.class);
         query.setParameter("tessera", tessera);
+        if (query.getResultList().isEmpty()) {
+            System.out.println("Non ci sono Elementi collegati a questa tessera!");
 
+        }
         return query.getResultList();
     }
 
 
     public List<Prestiti> findPrestitiScaduti() {
         TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.dataRestituzioneEffettiva IS NULL ", Prestiti.class);
+        if (query.getResultList().isEmpty()) {
+            System.out.println("Non ci sono prestiti scaduti!");
 
+        }
         return query.getResultList();
     }
 }

@@ -51,21 +51,27 @@ public class CatalogoDAO {
     public List<Catalogo> findByAnnoDiPubblicazione(Integer anno) {
         TypedQuery<Catalogo> query = em.createQuery("SELECT a FROM Catalogo a WHERE a.annoPubblicazione = :anno ", Catalogo.class);
         query.setParameter("anno", anno);
-
+        if (query.getResultList().isEmpty()) {
+            System.out.println("Non ci sono pubblicazioni in questo anno!");
+        }
         return query.getResultList();
     }
 
     public List<Libri> findByAutore(String autore) {
         TypedQuery<Libri> query = em.createQuery("SELECT a FROM Libri a WHERE a.autore = :autore ", Libri.class);
         query.setParameter("autore", autore);
-
+        if (query.getResultList().isEmpty()) {
+            System.out.println("Non ci sono pubblicazioni per questo autore!");
+        }
         return query.getResultList();
     }
 
     public List<Catalogo> findBytitolo(String titolo) {
         TypedQuery<Catalogo> query = em.createQuery("SELECT a FROM Catalogo a WHERE a.titolo LIKE :titolo ", Catalogo.class);
         query.setParameter("titolo", "%" + titolo + "%");
-
+        if (query.getResultList().isEmpty()) {
+            System.out.println("Non ci sono pubblicazioni con questo titolo!");
+        }
         return query.getResultList();
     }
 }
