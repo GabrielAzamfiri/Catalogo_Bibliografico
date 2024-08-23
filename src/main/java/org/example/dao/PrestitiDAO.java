@@ -2,8 +2,11 @@ package org.example.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import org.example.entities.Prestiti;
 import org.example.exceptions.NotFoundException;
+
+import java.util.List;
 
 public class PrestitiDAO {
 
@@ -42,5 +45,19 @@ public class PrestitiDAO {
 
         System.out.println("Il prestito " + found.getPrestitoID() + " è stato salvato correttamente!");
 
+    }
+
+    public List<Prestiti> findElementoByTessera(Integer tessera) {
+        TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.utente.numeroTessera = :tessera ", Prestiti.class);
+        query.setParameter("tessera", tessera);
+
+        return query.getResultList();
+    }
+
+
+    public List<Prestiti> findPrestitiScaduti() {
+        TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.dataRestituzioneEffettiva IS NULL ", Prestiti.class);
+
+        return query.getResultList();
     }
 }

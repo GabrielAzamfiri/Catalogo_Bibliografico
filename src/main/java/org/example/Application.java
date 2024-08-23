@@ -53,10 +53,29 @@ public class Application {
         Prestiti prestito1 = new Prestiti(utente1, libro1, LocalDate.of(2024, 8, 20), LocalDate.of(2024, 8, 23));
         Prestiti prestito2 = new Prestiti(utente2, libro2, LocalDate.of(2024, 7, 20), LocalDate.of(2024, 7, 23));
         Prestiti prestito3 = new Prestiti(utente3, libro3, LocalDate.of(2024, 5, 20), LocalDate.of(2024, 5, 23));
+        Prestiti prestito4 = new Prestiti(utente1, rivista1, LocalDate.of(2024, 2, 18), LocalDate.of(2024, 2, 23));
+        Prestiti prestito5 = new Prestiti(utente1, rivista2, LocalDate.of(2024, 5, 14), null);
+        Prestiti prestito6 = new Prestiti(utente2, rivista3, LocalDate.of(2024, 6, 11), null);
+//        pd.save(prestito5);
+//        pd.save(prestito6);
+//        pd.save(prestito4);
 //        pd.save(prestito1);
 //        pd.save(prestito2);
 //        pd.save(prestito3);
 
-        utente1.getPrestiti();
+        System.out.println("***********findByAnnoDiPubblicazione****************");
+        cd.findByAnnoDiPubblicazione(2022).forEach(System.out::println);
+
+        System.out.println("***********findByAutore****************");
+        cd.findByAutore("Diego Basili").forEach(System.out::println);
+
+        System.out.println("***********findBytitolo****************");
+        cd.findBytitolo("bro").forEach(System.out::println);
+
+        System.out.println("***********findElementoByTessera****************");
+        pd.findElementoByTessera(123).forEach(System.out::println);
+
+        System.out.println("***********findPrestitiScaduti****************");
+        pd.findPrestitiScaduti().forEach(System.out::println);
     }
 }

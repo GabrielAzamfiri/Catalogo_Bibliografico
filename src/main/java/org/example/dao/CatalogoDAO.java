@@ -2,8 +2,12 @@ package org.example.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import org.example.entities.Catalogo;
+import org.example.entities.Libri;
 import org.example.exceptions.NotFoundException;
+
+import java.util.List;
 
 public class CatalogoDAO {
 
@@ -44,4 +48,24 @@ public class CatalogoDAO {
         System.out.println("Il Book " + found.getTitolo() + " è stato eliminato correttamente!");
     }
 
+    public List<Catalogo> findByAnnoDiPubblicazione(Integer anno) {
+        TypedQuery<Catalogo> query = em.createQuery("SELECT a FROM Catalogo a WHERE a.annoPubblicazione = :anno ", Catalogo.class);
+        query.setParameter("anno", anno);
+
+        return query.getResultList();
+    }
+
+    public List<Libri> findByAutore(String autore) {
+        TypedQuery<Libri> query = em.createQuery("SELECT a FROM Libri a WHERE a.autore = :autore ", Libri.class);
+        query.setParameter("autore", autore);
+
+        return query.getResultList();
+    }
+
+    public List<Catalogo> findBytitolo(String titolo) {
+        TypedQuery<Catalogo> query = em.createQuery("SELECT a FROM Catalogo a WHERE a.titolo LIKE :titolo ", Catalogo.class);
+        query.setParameter("titolo", "%" + titolo + "%");
+
+        return query.getResultList();
+    }
 }

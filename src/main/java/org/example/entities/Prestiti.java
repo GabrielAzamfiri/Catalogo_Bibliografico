@@ -26,8 +26,11 @@ public class Prestiti {
     @Column(name = "data_restituzione_prevista", nullable = false)
     private LocalDate dataRestituzionePrevista;
 
-    @Column(name = "data_restituzione_effettiva", nullable = false)
+    @Column(name = "data_restituzione_effettiva", nullable = true)
     private LocalDate dataRestituzioneEffettiva;
+
+    public Prestiti() {
+    }
 
     public Prestiti(Utenti utente, Catalogo elementoPrestato, LocalDate dataPrestito, LocalDate dataRestituzioneEffettiva) {
         this.utente = utente;
@@ -85,8 +88,8 @@ public class Prestiti {
     public String toString() {
         return "Prestiti{" +
                 "prestitoID=" + prestitoID +
-                ", utente=" + utente +
-                ", elementoPrestato=" + elementoPrestato +
+                ", utente=" + utente.getCognome() +
+                ", elementoPrestato=" + elementoPrestato.getTitolo() + ", CodiceElementoPrestato=" + elementoPrestato.CodiceISBN +
                 ", dataPrestito=" + dataPrestito +
                 ", dataRestituzionePrevista=" + dataRestituzionePrevista +
                 ", dataRestituzioneEffettiva=" + dataRestituzioneEffettiva +
