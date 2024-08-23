@@ -6,6 +6,7 @@ import jakarta.persistence.TypedQuery;
 import org.example.entities.Prestiti;
 import org.example.exceptions.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class PrestitiDAO {
@@ -60,7 +61,9 @@ public class PrestitiDAO {
 
 
     public List<Prestiti> findPrestitiScaduti() {
-        TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.dataRestituzioneEffettiva IS NULL ", Prestiti.class);
+        LocalDate now = LocalDate.now();
+        TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.dataRestituzioneEffettiva IS NULL AND a.dataRestituzionePrevista < :now", Prestiti.class);
+        query.setParameter("now", now);
         if (query.getResultList().isEmpty()) {
             System.out.println("Non ci sono prestiti scaduti!");
 
