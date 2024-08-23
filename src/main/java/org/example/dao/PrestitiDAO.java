@@ -49,7 +49,7 @@ public class PrestitiDAO {
 
     public List<Prestiti> findElementoByTessera(Integer tessera) {
 
-        TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.utente.numeroTessera = :tessera ", Prestiti.class);
+        TypedQuery<Prestiti> query = em.createQuery("SELECT a FROM Prestiti a WHERE a.utente.numeroTessera = :tessera AND a.dataRestituzioneEffettiva IS NULL", Prestiti.class);
         query.setParameter("tessera", tessera);
         if (query.getResultList().isEmpty()) {
             System.out.println("Non ci sono Elementi collegati a questa tessera!");
